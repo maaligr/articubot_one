@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
 
-    <!-- Example link -->
-    <link name="base_link"></link>
+    <!-- Include elements from robot_core.xacro -->
+    <xacro:include filename="robot_core.xacro" />
+
+    <!-- Use elements from robot_core.xacro if needed -->
+    <!-- Example: -->
+    <!-- <xacro:core_element_name param1="value1" param2="value2" /> -->
 
 </robot>
