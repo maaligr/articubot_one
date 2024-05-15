@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <plugin name='ackermann_drive_controller' filename='libgazebo_ros_ackermann_drive.so'>
+    
+            <!-- Wheel Information -->
+            <left_rear_wheel>lower_left_wheel_joint</left_rear_wheel>
+            <right_rear_wheel>lower_right_wheel_joint</right_rear_wheel>
+            <left_front_wheel>upper_left_wheel_joint</left_front_wheel>
+            <right_front_wheel>upper_right_wheel_joint</right_front_wheel>
+
+            <!-- Ackermann Drive Parameters -->
+            <wheel_separation>0.3</wheel_separation> <!-- Adjusted wheel separation -->
+            <wheel_radius>0.05</wheel_radius> <!-- Assuming wheel radius -->
+            <steering_angle>0.785</steering_angle> <!-- Example steering angle -->
+
+            <!-- Limits -->
+            <max_steering_angle>0.785</max_steering_angle> <!-- Example max steering angle -->
+            <max_speed>1.0</max_speed> <!-- Example max speed -->
+
+            <!-- Output -->
+            <odometry_frame>odom</odometry_frame>
+            <base_link_frame>base_footprint</base_link_frame>
+
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf>
+            <publish_wheel_tf>true</publish_wheel_tf>
+    
+        </plugin>
+    </gazebo>
+
+</robot>

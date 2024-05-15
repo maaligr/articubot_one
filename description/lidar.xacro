@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <joint name="laser_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="laser_frame"/>
+        <origin xyz="0.2 -0.1 0.25" rpy="0 0 0"/>
+    </joint>
+
+    <link name="laser_frame">
+        <inertial>
+            <origin xyz="-0.09451642096837788 0.1 0.011806551131625875" rpy="0 0 0"/>
+            <mass value="0.058519310420852316"/>
+            <inertia ixx="1e-05" iyy="1.8e-05" izz="2e-05" ixy="0.0" iyz="-0.0" ixz="2e-06"/>
+        </inertial>
+        <visual>
+            <origin xyz="-0.2 0.1 -0.25" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://articubot_one/description/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="bleu"/> <!-- Set material to bleu (blue) -->
+        </visual>
+        <collision>
+            <origin xyz="-0.2 0.1 -0.25" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://articubot_one/description/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="laser_frame">
+        <material>Gazebo/bleu</material>
+        <sensor name="laser" type="ray">
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>360</samples>
+                        <min_angle>-3.14</min_angle>
+                        <max_angle>3.14</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.3</min>
+                    <max>12</max>
+                </range>
+            </ray>
+            <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <argument>~/out:=scan</argument>
+                </ros>
+                <output_type>sensor_msgs/LaserScan</output_type>
+                <frame_name>laser_frame</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+</robot>

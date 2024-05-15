@@ -3,6 +3,10 @@
 
     <!-- Include elements from robot_core.xacro -->
     <xacro:include filename="robot_core.xacro" />
+    <xacro:include filename="gazebo_control.xacro" />
+    <xacro:include filename="lidar.xacro" />
+    <xacro:include filename="camera.xacro" />
+
 
     <!-- Use elements from robot_core.xacro if needed -->
     <!-- Example: -->
