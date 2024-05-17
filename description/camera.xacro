@@ -1,63 +1,66 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <link name="camera_link">
-        <inertial>
-            <origin xyz="-5.607908532515647e-05 -1.1159512353752273e-14 0.11972685138201877" rpy="0 0 0"/>
-            <mass value="0.24695182299262655"/>
-            <inertia ixx="0.000829" iyy="0.000765" izz="0.000109" ixy="0.0" iyz="0.0" ixz="1e-06"/>
-        </inertial>
-        <visual>
-            <origin xyz="-0.0 -0.0 -0.25" rpy="0 0 0"/>
-            <geometry>
-                <mesh filename="package://articubot_one/description/meshes/camera_link.stl" scale="0.001 0.001 0.001"/>
-            </geometry>
-            <material name="dark_grey"/>
-        </visual>
-        <collision>
-            <origin xyz="-0.0 -0.0 -0.25" rpy="0 0 0"/>
-            <geometry>
-                <mesh filename="package://articubot_one/description/meshes/camera_link.stl" scale="0.001 0.001 0.001"/>
-            </geometry>
-        </collision>
-    </link>
+  <link name="camera_link">
+      <xacro:inertial_cylinder mass="0.24695182299262655" radius="0.05" length="0.24">
+        <origin xyz="0.0 0.0 -0.46" rpy="0 0 0"/>
+      </xacro:inertial_cylinder>
+    <visual>
+      <origin xyz="0.0 0.0 -0.46" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find articubot_one)/description/meshes/camera_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 -0.03" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.24"/>
+      </geometry>
+    </collision>
+  </link>
 
-    <joint name="camera_joint" type="fixed">
-        <parent link="base_link"/>
-        <child link="camera_link"/>
-        <origin xyz="0.0 0.0 0.25" rpy="0 0 0"/>
-    </joint>
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.0 0.0 0.45" rpy="0 0 0"/>
+  </joint>
 
-    <link name="camera_link_optical"></link>
+  <link name="camera_link_optical">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.00001" iyy="0.00001" izz="0.00001" ixy="0.0" iyz="0.0" ixz="0.0"/>
+    </inertial>
+  </link>
 
-    <joint name="camera_optical_joint" type="fixed">
-        <parent link="camera_link"/>
-        <child link="camera_link_optical"/>
-        <origin xyz="0 0 0" rpy="0 ${-pi/2} ${-pi/2}"/>
-    </joint>
+  <joint name="camera_optical_joint" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_link_optical"/>
+    <origin xyz="0 0 0" rpy="0 ${-PI/2} ${-PI/2}"/>
+  </joint>
 
-    <gazebo reference="camera_link">
-        <material>Gazebo/Red</material>
-        <sensor name="camera" type="camera">
-            <pose>0 0 0 0 0 0</pose>
-            <visualize>true</visualize>
-            <update_rate>10</update_rate>
-            <camera>
-                <horizontal_fov>1.089</horizontal_fov>
-                <image>
-                    <format>R8G8B8</format>
-                    <width>640</width>
-                    <height>480</height>
-                </image>
-                <clip>
-                    <near>0.05</near>
-                    <far>8.0</far>
-                </clip>
-            </camera>
-            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                <frame_name>camera_link_optical</frame_name>
-            </plugin>
-        </sensor>
-    </gazebo>
-
+  <gazebo reference="camera_link">
+    <material>Gazebo/Grey</material>
+    <sensor name="camera" type="camera">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <camera>
+        <horizontal_fov>1.089</horizontal_fov>
+        <image>
+          <format>R8G8B8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <frame_name>camera_link_optical</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
 </robot>

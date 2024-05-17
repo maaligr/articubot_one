@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find articubot_one)/description/inertial_macros.xacro" />
+  <xacro:property name="PI" value="3.1415926535897931" />
+  
+  <xacro:property name="wheel_radius" value="0.050" />
+  <xacro:property name="wheel_width" value="0.0505" /> 
+  <xacro:include filename="$(find articubot_one)/description/mecanum_wheel/mecanum_wheel.transmission.xacro"/>
+  <xacro:include filename="$(find articubot_one)/description/mecanum_wheel/mecanum_wheel.gazebo.xacro"/>
+  
+  <!-- Material definition -->
+  <material name="orange">
+    <color rgba="1 0.5 0 1"/>
+  </material>
+
+  <!-- wheel_v0 macro definition -->
+  <xacro:macro name="wheel_v0" params="prefix parent *joint_origin *joint_axis">
+    <joint name="${prefix}_left_wheel_joint" type="continuous">
+      <xacro:insert_block name="joint_origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_left_wheel_link"/>
+      <limit effort="100" velocity="100"/>
+      <xacro:insert_block name="joint_axis"/>
+    </joint>
+
+    <link name="${prefix}_left_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="$(find articubot_one)/description/meshes/mecanum_wheel_left.STL" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="orange" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="0.3844" radius="${wheel_radius}" length="${wheel_width}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:inertial_cylinder>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.2</mu>
+            <mu2>1.2</mu2>
+            <kp>1e15</kp>
+            <kd>1e13</kd>
+          </ode>
+        </friction>
+        <bounce>
+          <restitution_coefficient>0.01</restitution_coefficient>
+          <threshold>0</threshold>
+        </bounce>
+        <contact>
+          <ode>
+            <max_vel>10</max_vel>
+          </ode>
+        </contact>
+      </surface>
+    </link>
+  </xacro:macro>
+
+  <!-- wheel_v1 macro definition -->
+  <xacro:macro name="wheel_v1" params="prefix parent *joint_origin *joint_axis">
+    <joint name="${prefix}_right_wheel_joint" type="continuous">
+      <xacro:insert_block name="joint_origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_right_wheel_link"/>
+      <limit effort="100" velocity="100"/>
+      <xacro:insert_block name="joint_axis"/>
+    </joint>
+
+    <link name="${prefix}_right_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="$(find articubot_one)/description/meshes/mecanum_wheel_right.STL" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="orange" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="0.3844" radius="${wheel_radius}" length="${wheel_width}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:inertial_cylinder>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.2</mu>
+            <mu2>1.2</mu2>
+            <kp>1e15</kp>
+            <kd>1e13</kd>
+          </ode>
+        </friction>
+        <bounce>
+          <restitution_coefficient>0.01</restitution_coefficient>
+          <threshold>0</threshold>
+        </bounce>
+        <contact>
+          <ode>
+            <max_vel>10</max_vel>
+          </ode>
+        </contact>
+      </surface>
+    </link>
+  </xacro:macro>
+
+</robot>
