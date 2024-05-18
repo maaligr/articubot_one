@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
 
-    <!-- Include elements from robot_core.xacro -->
-    <xacro:include filename="robot_core.xacro" />
-    <xacro:include filename="lidar.xacro" />
-    <xacro:include filename="camera.xacro" />
+    <!-- Include elements from other xacro files -->
+    <xacro:include filename="$(find articubot_one)/description/robot_core.xacro" />
+    <xacro:include filename="$(find articubot_one)/description/lidar.xacro" />
+    <xacro:include filename="$(find articubot_one)/description/camera.xacro" />
+    <xacro:include filename="$(find articubot_one)/description/gazebo_control.xacro" />
 
-
-    <!-- Use elements from robot_core.xacro if needed -->
+    <!-- Use elements from included xacro files if needed -->
     <!-- Example: -->
     <!-- <xacro:core_element_name param1="value1" param2="value2" /> -->
 
 </robot>
+
