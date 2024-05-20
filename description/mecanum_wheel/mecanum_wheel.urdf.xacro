@@ -20,7 +20,7 @@
       <xacro:insert_block name="joint_origin"/>
       <parent link="${parent}"/>
       <child link="${prefix}_left_wheel_link"/>
-      <limit effort="100" velocity="100"/>
+      <limit effort="100" velocity="300"/>
       <xacro:insert_block name="joint_axis"/>
     </joint>
 
@@ -44,8 +44,8 @@
       <surface>
         <friction>
           <ode>
-            <mu>1.2</mu>
-            <mu2>1.2</mu2>
+            <mu>0.9</mu>
+            <mu2>0.9</mu2>
             <kp>1e15</kp>
             <kd>1e13</kd>
           </ode>
@@ -69,7 +69,7 @@
       <xacro:insert_block name="joint_origin"/>
       <parent link="${parent}"/>
       <child link="${prefix}_right_wheel_link"/>
-      <limit effort="100" velocity="100"/>
+      <limit effort="100" velocity="300"/>
       <xacro:insert_block name="joint_axis"/>
     </joint>
 
@@ -93,8 +93,8 @@
       <surface>
         <friction>
           <ode>
-            <mu>1.2</mu>
-            <mu2>1.2</mu2>
+            <mu>0.9</mu>
+            <mu2>0.9</mu2>
             <kp>1e15</kp>
             <kd>1e13</kd>
           </ode>

@@ -90,9 +90,8 @@
 
   <!-- Gazebo -->
   <gazebo reference="base_link">
-    <material>Gazebo/Purple</material>
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
+    <material>Gazebo/Green</material>
+  
     <self_collide>false</self_collide>
     <gravity>true</gravity>
   </gazebo>
