@@ -8,7 +8,7 @@
     <visual>
       <origin xyz="0.0 0.0 -0.46" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="$(find articubot_one)/description/meshes/camera_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="file://$(find articubot_one)/description/meshes/camera_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="dark_grey"/>
     </visual>

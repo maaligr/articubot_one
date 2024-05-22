@@ -46,7 +46,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="$(find articubot_one)/description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="file://$(find articubot_one)/description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="light_purple"/>
     </visual>

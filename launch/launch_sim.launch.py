@@ -3,7 +3,6 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 def generate_launch_description():
@@ -20,15 +19,19 @@ def generate_launch_description():
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory(package_name), 'launch', 'rsp.launch.py'
         )]),
-        launch_arguments={'use_sim_time': 'true'}.items()
+        launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
     )
+
+
+
+    # Gazebo parameters file
+    gazebo_params_file = os.path.join(get_package_share_directory(package_name), 'config', 'gazebo_params.yaml')
 
     # Include the Gazebo launch file
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py'
-        )]),
-        launch_arguments={'world': LaunchConfiguration('world')}.items()
+            get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
+        launch_arguments={'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params_file}.items()
     )
 
     # Run the spawner node
@@ -39,9 +42,26 @@ def generate_launch_description():
         output='screen'
     )
 
+    # Joint state publisher
+    joint_state_publisher = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        parameters=[{'use_sim_time': True}],  # Corrected parameter definition
+
+        name='joint_state_publisher',
+
+        output='screen'
+    )
+    
+   
+    
+
+
+    
+
     return LaunchDescription([
         declare_world_arg,
         rsp,
         gazebo,
         spawn_entity,
-    ])
+        joint_state_publisher,    ])
