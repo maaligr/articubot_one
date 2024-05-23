@@ -9,7 +9,7 @@ def generate_launch_description():
     # Declare the world argument
     declare_world_arg = DeclareLaunchArgument(
         'world',
-        default_value=os.path.join(get_package_share_directory('articubot_one'), 'worlds', 'my_world.world'),
+        default_value=os.path.join(get_package_share_directory('articubot_one'), 'worlds', 'outdoor_world.world','model.world'),
         description='Path to the world file to load'
     )
 

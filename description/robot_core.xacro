@@ -30,9 +30,11 @@
     <color rgba="0.8 0.6 1.0 1.0"/>
   </material>
 
-  <link name="base_footprint" />
+  
+  <link name="base_footprint">
+  </link>
 
-  <joint name="base_link_joint" type="fixed">
+  <joint name="base_footprint_to_base_link" type="fixed">
     <origin xyz="0 0 0.04" rpy="0 0 0" />
     <parent link="base_footprint" />
     <child link="base_link" />
@@ -41,7 +43,7 @@
   <!-- Define base link -->
   <link name="base_link">
     <xacro:inertial_box mass="4.0990470908566525" x="0.7" y="0.5" z="0.3">
-              <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:inertial_box>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -91,7 +93,6 @@
   <!-- Gazebo -->
   <gazebo reference="base_link">
     <material>Gazebo/Green</material>
-  
     <self_collide>false</self_collide>
     <gravity>true</gravity>
   </gazebo>
